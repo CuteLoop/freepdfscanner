@@ -1,0 +1,12 @@
+{
+  "name": "PageScan — Photos to PDF",
+  "short_name": "PageScan",
+  "description": "A free, private, on-device photo-to-PDF scanner.",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f5f7fb",
+  "theme_color": "#111827",
+  "icons": [{"src":"./icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}

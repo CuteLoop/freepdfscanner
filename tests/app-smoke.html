@@ -1,0 +1,32 @@
+<!doctype html><meta charset="utf-8"><title>PageScan application smoke test</title>
+<input id="camera" type="file"><input id="gallery" type="file" multiple><div id="empty"></div>
+<section id="area" hidden><span id="counter"></span><button id="clear"></button><div id="pages"></div><input id="filename" value="smoke-test"><select id="quality"><option value="1600">Standard</option></select><button id="save">Save</button><div id="message"></div><div id="result" hidden><a id="download"></a><a id="open"></a><button id="share" hidden></button></div></section>
+<span id="network"></span><pre id="test-result">Running…</pre>
+<script src="../scanner-core.js"></script><script src="../app.js"></script>
+<script>
+(async function () {
+  const result = document.getElementById('test-result');
+  const waitFor = (test, timeout = 5000) => new Promise((resolve, reject) => {
+    const started = Date.now(); const timer = setInterval(() => { if (test()) { clearInterval(timer); resolve(); } else if (Date.now() - started > timeout) { clearInterval(timer); reject(new Error('Timed out')); } }, 25);
+  });
+  try {
+    async function imageFile(name, width, height, color) {
+      const canvas = document.createElement('canvas'); canvas.width = width; canvas.height = height;
+      const context = canvas.getContext('2d'); context.fillStyle = color; context.fillRect(0, 0, width, height);
+      const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/jpeg', .85)); return new File([blob], name, { type: 'image/jpeg' });
+    }
+    const transfer = new DataTransfer(); transfer.items.add(await imageFile('portrait.jpg', 120, 160, '#fff')); transfer.items.add(await imageFile('landscape.jpg', 160, 120, '#ddd'));
+    const gallery = document.getElementById('gallery'); gallery.files = transfer.files; gallery.dispatchEvent(new Event('change'));
+    await waitFor(() => document.getElementById('counter').textContent === '2 pages');
+    document.querySelector('[aria-label="Rotate right page 1"]').click();
+    document.querySelector('[aria-label="Move later page 1"]').click();
+    document.getElementById('save').click();
+    await waitFor(() => !document.getElementById('result').hidden, 10000);
+    const pdf = await fetch(document.getElementById('download').href).then((response) => response.arrayBuffer());
+    const text = new TextDecoder('latin1').decode(pdf);
+    if (!text.includes('/Count 2')) throw new Error('PDF did not contain two pages');
+    if ((text.match(/\/Width 160 \/Height 120/g) || []).length !== 2) throw new Error('Rotation did not produce the expected page dimensions');
+    result.id = 'pass'; result.textContent = `PASS: import, rotation, reorder, and two-page export (${pdf.byteLength} bytes)`;
+  } catch (error) { result.id = 'fail'; result.textContent = `FAIL: ${error.message}`; }
+}());
+</script>

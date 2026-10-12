@@ -1,0 +1,20 @@
+<!doctype html><meta charset="utf-8"><title>PageScan browser smoke test</title><pre id="result">Running…</pre>
+<script src="../scanner-core.js"></script>
+<script>
+(async function () {
+  const output = document.getElementById('result');
+  try {
+    async function jpeg(width, height, color) {
+      const canvas = document.createElement('canvas'); canvas.width = width; canvas.height = height;
+      const context = canvas.getContext('2d'); context.fillStyle = color; context.fillRect(0, 0, width, height);
+      const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/jpeg', .8));
+      return { w: width, h: height, bytes: new Uint8Array(await blob.arrayBuffer()) };
+    }
+    const portrait = await jpeg(120, 160, '#fff'), landscape = await jpeg(160, 120, '#ddd');
+    const pdf = PageScanCore.pdfFromJpegs([portrait, landscape]);
+    const text = await pdf.text();
+    if (pdf.type !== 'application/pdf' || pdf.size < 1000 || !text.includes('/Count 2') || !text.endsWith('%%EOF')) throw new Error('Invalid multipage PDF output');
+    output.id = 'pass'; output.textContent = `PASS: two-page PDF (${pdf.size} bytes)`;
+  } catch (error) { output.id = 'fail'; output.textContent = `FAIL: ${error.message}`; }
+}());
+</script>

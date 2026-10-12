@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#111827">
+  <meta name="description" content="A free, private, on-device photo-to-PDF scanner that works offline.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="PageScan">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <title>PageScan — Photos to PDF</title>
+  <style>
+    :root{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:#172033;background:#f5f7fb;color-scheme:light}*{box-sizing:border-box}body{margin:0;min-height:100vh;min-height:100dvh;-webkit-text-size-adjust:100%;padding-bottom:env(safe-area-inset-bottom)}button,input,select{font:inherit}
+    header{background:#111827;color:#fff;padding:calc(22px + env(safe-area-inset-top)) max(18px,env(safe-area-inset-right)) 18px max(18px,env(safe-area-inset-left))}.header-inner{max-width:720px;margin:auto;display:flex;align-items:flex-start;justify-content:space-between;gap:12px}header h1{margin:0;font-size:25px;letter-spacing:-.7px}header p{color:#cbd5e1;font-size:13px;margin:5px 0 0}.network{flex:none;border:1px solid #475569;border-radius:999px;padding:5px 9px;font-size:11px;color:#dbeafe;background:#1e293b}.network.offline{color:#fef3c7;border-color:#92400e;background:#451a03}
+    main{max-width:720px;margin:auto;padding:18px max(14px,env(safe-area-inset-right)) 90px max(14px,env(safe-area-inset-left))}.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.btn{display:inline-flex;align-items:center;justify-content:center;text-align:center;min-height:48px;border:0;border-radius:13px;padding:12px 14px;background:#fff;color:#172033;font-size:15px;font-weight:650;cursor:pointer;box-shadow:0 2px 8px #17203312;touch-action:manipulation;-webkit-tap-highlight-color:transparent;text-decoration:none}.btn:focus-visible,.tools button:focus-visible,.cause a:focus-visible{outline:3px solid #93c5fd;outline-offset:2px}.primary{background:#2563eb;color:#fff}.btn:disabled{opacity:.45;cursor:not-allowed}.wide{width:100%}input[type=file]{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;clip-path:inset(50%)}.hint{color:#58677f;font-size:13px;line-height:1.5;margin:12px 2px}.empty{margin-top:20px;border:2px dashed #c7d2e1;border-radius:18px;padding:45px 20px;text-align:center;color:#66748a;background:#fff}.empty strong{display:block;color:#263247;margin-bottom:6px}.topline{display:flex;justify-content:space-between;align-items:center;margin:20px 2px 12px}.topline h2{font-size:17px;margin:0}
+    .pages{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}@media(min-width:560px){.pages{grid-template-columns:repeat(3,minmax(0,1fr))}}.card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 13px #17203312}.previewbox{aspect-ratio:3/4;width:100%;overflow:hidden;background:#e7eaf0;display:flex;align-items:center;justify-content:center}.preview{width:100%;height:100%;object-fit:contain;transition:transform .15s ease}.cardfoot{padding:8px}.pageno{font-size:12px;font-weight:700;margin-bottom:8px;color:#334155}.tools{display:flex;gap:5px}.tools button{flex:1;min-width:0;min-height:38px;border:1px solid #d9e0ec;border-radius:7px;background:#f8fafc;padding:7px 2px;font-size:16px;cursor:pointer;touch-action:manipulation}.tools .delete{color:#b91c1c}
+    .export{margin-top:24px;background:#fff;border-radius:16px;padding:16px;box-shadow:0 2px 14px #17203312}.export h2{font-size:17px;margin:0 0 12px}.line{display:flex;align-items:center;gap:8px;margin:12px 0}.line label{font-size:14px;flex:1}.line select,.line input{max-width:62%;min-height:44px;border:1px solid #cbd5e1;border-radius:8px;padding:8px;font-size:16px;background:#fff}.message{font-size:13px;line-height:1.45;color:#1d4ed8;min-height:20px;margin-top:10px}.result{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid #e2e8f0}.result[hidden]{display:none}.result .share{grid-column:1/-1}
+    .cause{margin-top:20px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:15px;padding:16px;text-align:center}.cause h2{font-size:17px;margin:0 0 6px;color:#166534}.cause p{font-size:13px;color:#365448;line-height:1.5;margin:5px 0 13px}.cause a{display:inline-flex;align-items:center;justify-content:center;background:#166534;color:#fff;text-decoration:none;border-radius:10px;padding:11px 17px;min-height:44px;font-weight:650}.cause small{display:block;font-size:11px;color:#52705c;margin-top:9px}.privacy{background:#eef2ff;border-radius:12px;padding:12px;margin-top:14px;color:#475569;font-size:12px;line-height:1.45}.footer{color:#66748a;font-size:12px;text-align:center;margin:22px 0}
+    @media(max-width:390px){.actions,.result{grid-template-columns:1fr}.result .share{grid-column:auto}.line{align-items:flex-start;flex-direction:column}.line select,.line input{max-width:none;width:100%}}@media(prefers-reduced-motion:reduce){.preview{transition:none}}
+  </style>
+</head>
+<body>
+  <header><div class="header-inner"><div><h1>▣ PageScan</h1><p>Scan your homework. Export one PDF. Private and free.</p></div><span id="network" class="network" role="status">On-device</span></div></header>
+  <main>
+    <div class="actions"><label class="btn primary" for="camera">📷 Take photo</label><label class="btn" for="gallery">▧ Choose photos</label></div>
+    <input id="camera" type="file" accept="image/*" capture="environment"><input id="gallery" type="file" accept="image/*" multiple>
+    <p class="hint">Take one photo at a time, or choose several from your gallery. You can rotate and reorder them before export.</p>
+    <div id="empty" class="empty"><strong>No pages yet</strong>Photograph the first page to begin.</div>
+    <section id="area" hidden>
+      <div class="topline"><h2 id="counter">Pages</h2><button class="btn" id="clear" type="button" style="min-height:40px;padding:6px 10px;font-size:13px">Clear all</button></div>
+      <div id="pages" class="pages"></div>
+      <div class="export">
+        <h2>Create PDF</h2>
+        <div class="line"><label for="filename">File name</label><input id="filename" value="scanned-pages" maxlength="60" autocapitalize="off" spellcheck="false"></div>
+        <div class="line"><label for="quality">Image size</label><select id="quality"><option value="1600">Standard (smaller PDF)</option><option value="2400">High quality</option><option value="1100">Compact</option></select></div>
+        <button id="save" type="button" class="btn primary wide">↓ Create &amp; save PDF</button><div class="message" id="message" role="status" aria-live="polite"></div>
+        <div id="result" class="result" hidden><a id="download" class="btn primary" download>↓ Download PDF</a><a id="open" class="btn" target="_blank" rel="noopener">Open PDF</a><button id="share" type="button" class="btn share" hidden>Share / save with another app</button></div>
+      </div>
+    </section>
+    <div class="privacy">Photos and PDFs stay in this browser. PageScan has no upload service, account, document analytics, or paid scanner features.</div>
+    <aside class="cause" aria-label="Support reforestation"><h2>🌱 Scan pages. Help restore forests.</h2><p>PageScan is free, private, and supported by the community. If it helped you, consider a voluntary donation to reforestation.</p><a id="donate" href="https://www.justgiving.com/page/freepagescan?utm_medium=FA&amp;utm_source=CL" target="_blank" rel="noopener noreferrer">🌳 Support reforestation ↗</a><small>Donations are processed by JustGiving for One Tree Planted. PageScan does not collect payments or donor information.</small></aside>
+    <div class="footer">No login · No upload · Installable · Works offline after the first visit</div>
+  </main>
+  <script src="./scanner-core.js"></script><script src="./app.js"></script>
+</body>
+</html>
