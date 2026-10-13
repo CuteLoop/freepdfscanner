@@ -1,4 +1,4 @@
-<!doctype html><meta charset="utf-8"><title>PageScan browser smoke test</title><pre id="result">Running…</pre>
+<!doctype html><meta charset="utf-8"><title>PDF3000 browser smoke test</title><pre id="result">Running…</pre>
 <script src="../scanner-core.js"></script>
 <script>
 (async function () {
@@ -11,7 +11,7 @@
       return { w: width, h: height, bytes: new Uint8Array(await blob.arrayBuffer()) };
     }
     const portrait = await jpeg(120, 160, '#fff'), landscape = await jpeg(160, 120, '#ddd');
-    const pdf = PageScanCore.pdfFromJpegs([portrait, landscape]);
+    const pdf = PDF3000Core.pdfFromJpegs([portrait, landscape]);
     const text = await pdf.text();
     if (pdf.type !== 'application/pdf' || pdf.size < 1000 || !text.includes('/Count 2') || !text.endsWith('%%EOF')) throw new Error('Invalid multipage PDF output');
     output.id = 'pass'; output.textContent = `PASS: two-page PDF (${pdf.size} bytes)`;

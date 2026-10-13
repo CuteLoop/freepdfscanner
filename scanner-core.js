@@ -2,11 +2,11 @@
   'use strict';
   const api = factory();
   if (typeof module === 'object' && module.exports) module.exports = api;
-  root.PageScanCore = api;
+  root.PDF3000Core = api;
 }(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   'use strict';
   function safePdfName(value) {
-    const base = String(value || '').trim().replace(/[\\/:*?"<>|\u0000-\u001f]+/g, '-').replace(/\s+/g, ' ').replace(/^\.+|\.+$/g, '').replace(/\.pdf$/i, '').slice(0, 60) || 'scanned-pages';
+    const base = String(value || '').trim().replace(/[\\/:*?"<>|\u0000-\u001f]+/g, '-').replace(/\s+/g, ' ').replace(/^\.+|\.+$/g, '').replace(/\.pdf$/i, '').slice(0, 60) || 'pdf3000-document';
     return base + '.pdf';
   }
   function pdfFromJpegs(images) {
@@ -16,7 +16,7 @@
     function text(value) { append(encoder.encode(value)); }
     function object(id, body) { offsets[id] = position; text(`${id} 0 obj\n${body}\nendobj\n`); }
     function stream(id, dictionary, bytes) { offsets[id] = position; text(`${id} 0 obj\n<< ${dictionary} /Length ${bytes.length} >>\nstream\n`); append(bytes); text('\nendstream\nendobj\n'); }
-    text('%PDF-1.4\n%PageScan\n'); const kids = [];
+    text('%PDF-1.4\n%PDF3000\n'); const kids = [];
     for (let index = 0; index < images.length; index += 1) {
       const id = 3 + index * 3, image = images[index];
       if (!image || image.w < 1 || image.h < 1 || !(image.bytes instanceof Uint8Array)) throw new Error('A PDF page contains invalid image data.');

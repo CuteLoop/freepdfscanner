@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  const { pdfFromJpegs, safePdfName } = window.PageScanCore;
+  const { pdfFromJpegs, safePdfName } = window.PDF3000Core;
   const pages = [], $ = (id) => document.getElementById(id);
   let busy = false, resultUrl = '', resultFile = null, offlineReady = false;
 

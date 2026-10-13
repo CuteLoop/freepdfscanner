@@ -1,7 +1,7 @@
 {
-  "name": "PageScan — Photos to PDF",
-  "short_name": "PageScan",
-  "description": "A free, private, on-device photo-to-PDF scanner.",
+  "name": "PDF3000 — Free private PDF tools",
+  "short_name": "PDF3000",
+  "description": "Free, private PDF tools that process documents on your device.",
   "id": "./",
   "start_url": "./",
   "scope": "./",
